@@ -22,7 +22,7 @@ class SmsController extends Controller
             if($result['status'] == "success")
             {
                 Comment::updateAll(['remind' => 1]);    //把提醒标志全部设为已提醒
-                echo '['.date('Y-m-d H:i:s',$result['dt']).']'.$content.'['.$result['length'].']';
+                echo '['.date('Y-m-d H:i:s',$result['dt']).']'.$content.'['.$result['length'].']'."\r\n";
             }
             return 0;   //退出代码
         }

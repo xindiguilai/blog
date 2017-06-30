@@ -8,18 +8,9 @@ use common\models\Post;
 class HelloController extends Controller
 {
 
-   /**
+   
    public $rev;
 
-   public function options()
-   {
-        return ['rev'];
-   }
-
-   public function optionAliases()
-   {
-        return ['r' => 'rev'];
-   }
 
    public function actionIndex()    
    {
@@ -32,9 +23,8 @@ class HelloController extends Controller
             echo "Hello World !";
         }
    }
-   /*
    
-
+/**
    public function actionIndex()    //index是默认的动作
    {
         echo "Hello World ! \n";
