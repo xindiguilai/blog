@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 use frontend\components\TagsCloudWidget;
 use frontend\components\RctReplyWidget;
+use common\models\Post;
+use yii\caching\DbDependency;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PostSearch */
@@ -39,7 +41,23 @@ use frontend\components\RctReplyWidget;
             <div class="searchbox">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;查找文章
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;查找文章(
+                            <?php
+                                /**
+                                $data = Yii::$app->cache->get('postCount');
+
+                                $dependency = new DbDependency(['sql' => 'select count(id) from post']);
+
+                                if($data === false)
+                                {
+                                    $data = Post::find()->count(); sleep(5);
+                                    Yii::$app->cache->set('postCount',$data,600,$dependency);    //设置缓存60秒后过期
+                                }
+                                echo $data;
+                                */
+                                echo Post::find()->count();
+                            ?>
+                        )
                     </li>
                     <li class="list-group-item">
                         <form class="form-inline" action="index.php?r=post/index" method="get" id="w0">
@@ -59,6 +77,17 @@ use frontend\components\RctReplyWidget;
                     </li>
                     <li class="list-group-item">
                         <?= TagsCloudWidget::widget(['tags' => $tags]) ?>
+                        <?php
+                            /**
+                            $dependency = new DbDependency(['sql' => 'select count(id) from post']);
+
+                            if($this->beginCache('cache',['duration' => 600],['dependency' => $dependency]))
+                            {
+                                echo TagsCloudWidget::widget(['tags' => $tags]);
+                                $this->endCache();
+                            }
+                            */
+                        ?>
                     </li>
                 </ul>
             </div>

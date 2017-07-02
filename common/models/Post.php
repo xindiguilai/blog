@@ -120,8 +120,8 @@ class Post extends \yii\db\ActiveRecord
     public function getUrl()
     {
         return Yii::$app->urlManager->createUrl(
-            //['post/detail','id' => $this->id, 'title' => $this->title]
-            ['post/detail','id' => $this->id]
+            ['post/detail','id' => $this->id, 'title' => $this->title]
+            //['post/detail','id' => $this->id]
         );
     }
 
