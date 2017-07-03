@@ -47,6 +47,7 @@ class PostController extends Controller
                     'sql' => 'select count(id) from post',
                 ],
             ],
+            /**
             'httpCache' => [
                 'class' => 'yii\filters\HttpCache',
                 'only' => ['detail'],
@@ -62,6 +63,7 @@ class PostController extends Controller
                 },
                 'cacheControlHeader' => 'public,max-age=600',
             ],
+            */
         ];
     }
 

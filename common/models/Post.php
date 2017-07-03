@@ -20,6 +20,9 @@ use yii\helpers\Html;
  * @property integer $create_time
  * @property integer $update_time
  * @property integer $author_id
+ * @property Comment[] $comments 
+ * @property Adminuser $author 
+ * @property Poststatus $status0 
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -44,6 +47,8 @@ class Post extends \yii\db\ActiveRecord
             [['id', 'status', 'create_time', 'update_time', 'author_id'], 'integer'],
             [['content', 'tags'], 'string'],
             [['title'], 'string', 'max' => 128],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Adminuser::className(), 'targetAttribute' => ['author_id' => 'id']], 
+            [['status'], 'exist', 'skipOnError' => true, 'targetClass' => Poststatus::className(), 'targetAttribute' => ['status' => 'id']], 
         ];
     }
 
