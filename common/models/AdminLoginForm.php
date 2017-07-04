@@ -68,6 +68,8 @@ class AdminLoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            //Yii::$app->user->login()：将当前用户登记到yii\web\user.根据设置，用session或cookie记录
+            //用户身份，用户的认证状态将在整个回话中得以维持.
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;

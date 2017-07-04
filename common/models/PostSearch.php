@@ -24,8 +24,8 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id', 'status', 'create_time', 'update_time','author_id'], 'integer'],
-            [['title', 'content', 'tags', 'authorName'], 'safe'],
+            [['id', 'status','author_id'], 'integer'],
+            [['title', 'content', 'tags', 'authorName','update_time','create_time'], 'safe'],
         ];
     }
 
@@ -54,11 +54,14 @@ class PostSearch extends Post
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => ['pageSize' => 15],
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC], 'attributes' => ['id','title']],
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC], 'attributes' => ['id','title','update_time']],
         ]);
 
+        //$params['PostSearch']['update_time'] = strtotime($params['PostSearch']['update_time']);
         $this->load($params);
-
+        //echo '<br /><br /><br /><br />';
+        //var_dump($params);
+        
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -70,15 +73,21 @@ class PostSearch extends Post
             //'id' => $this->id,
             'post.id' => $this->id,
             'status' => $this->status,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
-            'author_id' => $this->author_id,
+            //'create_time' => $this->create_time,
+            //'update_time' => $this->update_time,
+            //'author_id' => $this->author_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'tags', $this->tags]);
 
+        if(isset($params['PostSearch']) && !empty($params['PostSearch']['update_time']))
+        {
+            $start_u_time = strtotime($params['PostSearch']['update_time'].' 00:00:00');
+            $end_u_time = strtotime($params['PostSearch']['update_time'].' 23:59:59');
+            $query->andFilterWhere(['between','update_time',$start_u_time,$end_u_time]);
+        }
 
         $query->join('INNER JOIN','Adminuser','post.author_id = Adminuser.id');
         $query->andFilterWhere(['like','Adminuser.nickname',$this->authorName]);

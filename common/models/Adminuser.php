@@ -37,9 +37,9 @@ class Adminuser extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'nickname', 'password', 'email'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'nickname', 'email'], 'required'],
             [['profile'], 'string'],
-            [['username', 'nickname', 'password', 'email'], 'string', 'max' => 128],
+            [['username', 'nickname', 'email'], 'string', 'max' => 128],
             [['auth_key'], 'string', 'max' => 32], 
             [['password_hash', 'password_reset_token'], 'string', 'max' => 255], 
         ];
@@ -164,6 +164,7 @@ class Adminuser extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
+        //yii\base\security
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 

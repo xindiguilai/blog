@@ -9,12 +9,29 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
+use yii\filters\AccessControl;
 
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
 class CommentController extends Controller
 {
+    /**
+     * @inheritdoc
+     
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+    */
+
     /**
      * @inheritdoc
      */
@@ -25,6 +42,27 @@ class CommentController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'], //普通用户(游客，未登陆的用户)
+                    ],
+                    [
+                        'actions' => ['view', 'index', 'create', 'update', 'delete', 'approve'],
+                        'allow' => true,
+                        'roles' => ['@'], //判断是否是已登陆用户
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
                 ],
             ],
         ];

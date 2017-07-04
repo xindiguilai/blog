@@ -70,17 +70,17 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        //$this->layout = false;
+        $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->goHome();     //Yii::$app->user->isGuest判断是否是游客
         }
 
         $model = new AdminLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goBack();     //登录成功
         } else {
             return $this->render('login', [
-                'model' => $model,
+                'model' => $model,  //登录失败
             ]);
         }
     }
@@ -92,6 +92,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        //注销用户
         Yii::$app->user->logout();
 
         return $this->goHome();

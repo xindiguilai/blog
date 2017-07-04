@@ -12,12 +12,28 @@ use backend\models\SignupForm;
 use backend\models\ResetpwdForm;
 use common\models\AuthAssignment;
 use common\models\AuthItem;
+use yii\filters\AccessControl;
 
 /**
  * AdminuserController implements the CRUD actions for Adminuser model.
  */
 class AdminuserController extends Controller
 {
+    /**
+     * @inheritdoc
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+    */
+
     /**
      * @inheritdoc
      */
@@ -28,6 +44,28 @@ class AdminuserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        //'actions' => ['index', 'view'],
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'], //普通用户(游客，未登陆的用户)
+                    ],
+                    [
+                        'actions' => ['view', 'index', 'create', 'update', 'delete', 'resetpwd', 'privilege'],
+                        'allow' => true,
+                        'roles' => ['@'], //判断是否是已登陆用户
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
                 ],
             ],
         ];

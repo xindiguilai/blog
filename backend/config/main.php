@@ -15,7 +15,8 @@ return [
     'language' => 'zh-CN',
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
+            'cookieValidationKey' => 'sdfjjksloeedf78789judf',
+            'csrfParam' => '_adminCSRF',
         ],
         'user' => [
             'identityClass' => 'common\models\Adminuser',
@@ -24,7 +25,8 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'PHPBACKSESSION',
+            'savePath' => sys_get_temp_dir(),
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

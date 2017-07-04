@@ -2,10 +2,24 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\PostSearch */
 /* @var $form yii\widgets\ActiveForm */
+/**
+<!--
+    <?= //$form->field($model, 'id') ?>
+
+    <?= //$form->field($model, 'title') ?>
+
+    <?= //$form->field($model, 'authorName') ?>
+
+    <?= //$form->field($model, 'tags') ?>
+
+    <?= //$form->field($model, 'status') ?>
+-->
+*/
 ?>
 
 <div class="post-search">
@@ -15,25 +29,18 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'authorName') ?>
-
-    <?= $form->field($model, 'tags') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'create_time') ?>
-
-    <?php // echo $form->field($model, 'update_time') ?>
-
-    <?php // echo $form->field($model, 'author_id') ?>
+    <?php echo $form->field($model, 'update_time')->widget(DatePicker::classname(), [ 
+    'options' => ['placeholder' => ''], 
+    'value' => '', 
+    'pluginOptions' => [ 
+        'autoclose' => true, 
+        'todayHighlight' => true, 
+        'format' => 'yyyy-mm-dd', 
+    ]]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('搜索', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

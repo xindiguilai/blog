@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UsertSearch */
@@ -33,9 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_reset_token',
             'email:email',
             //'status',
+            //[
+                //'attribute' => 'status',
+                //'value' => 'statusStr',
+            //],
             [
                 'attribute' => 'status',
                 'value' => 'statusStr',
+                'filter' => User::allStatus(),
+                'contentOptions' => 
+                function($model)
+                {
+                    return ($model->status == 0) ? ['class' => 'bg-danger'] : ['class' => 'bg-success'];
+                }
             ],
             //'created_at',
             //'updated_at',

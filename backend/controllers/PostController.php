@@ -32,7 +32,8 @@ class PostController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        //'actions' => ['index', 'view'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                         'roles' => ['?'], //普通用户(游客，未登陆的用户)
                     ],
@@ -58,6 +59,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        //$this->layout = false;
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
