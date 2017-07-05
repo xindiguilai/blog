@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\Tag;
 use common\models\Comment;
 use common\models\User;
+use yii\filters\AccessControl;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -30,6 +31,28 @@ class PostController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        //'actions' => ['index', 'view'],
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'], //普通用户(游客，未登陆的用户)
+                    ],
+                    [
+                        'actions' => ['index','detail'],
+                        'allow' => true,
+                        'roles' => ['@'], //判断是否是已登陆用户
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
                 ],
             ],
             'pageCache' => [
@@ -73,7 +96,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        
+        //var_dump(Yii::$app->user->isGuest);die;
         $tags = Tag::findTagWeights();
         $recentComments = Comment::findRecentComments();
         //echo '<pre>';

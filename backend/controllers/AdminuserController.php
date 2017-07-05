@@ -19,20 +19,6 @@ use yii\filters\AccessControl;
  */
 class AdminuserController extends Controller
 {
-    /**
-     * @inheritdoc
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-    */
 
     /**
      * @inheritdoc
@@ -58,7 +44,7 @@ class AdminuserController extends Controller
                     [
                         'actions' => ['view', 'index', 'create', 'update', 'delete', 'resetpwd', 'privilege'],
                         'allow' => true,
-                        'roles' => ['@'], //判断是否是已登陆用户
+                        'roles' => ['@'], //判断是否是已登陆用户(已认证的用户)
                     ],
                 ],
             ],

@@ -79,8 +79,6 @@ class SignupForm extends Model
         $user->profile = $this->profile;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->password = '123456';
-        $user->password_reset_token = '22';
 
         //echo '<pre>';
         //var_dump($user);die;

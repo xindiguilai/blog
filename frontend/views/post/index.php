@@ -62,7 +62,7 @@ use yii\caching\DbDependency;
                     <li class="list-group-item">
                         <form class="form-inline" action="index.php?r=post/index" method="get" id="w0">
                               <div class="form-group">
-                                    <div class="col-sm"><input type="text" class="form-control" style="padding-right: 9px; padding-left: 9px;" name="PostSearch[title]" id="w0input" placeholder="按标题"></div>
+                                    <div class="col-sm"><input type="text" class="form-control" style="padding-right: 9px; padding-left: 9px;" name="PostSearch[title]" id="w0input" placeholder="按标题" value="<?= Html::encode($searchModel->title) ?>"></div>
                               </div>
                               <button type="submit" class="btn btn-default">搜索</button>
                         </form>
