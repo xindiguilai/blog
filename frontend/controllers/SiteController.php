@@ -72,7 +72,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        
+		return $this->render('index');
     }
 
     /**
@@ -138,7 +139,8 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        echo phpinfo();die;
+		return $this->render('about');
     }
 
     /**

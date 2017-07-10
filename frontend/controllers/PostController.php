@@ -58,7 +58,7 @@ class PostController extends Controller
             'pageCache' => [
                 'class' => 'yii\filters\PageCache',
                 'only' => ['index'],
-                'duration' => 600,
+                'duration' => 60,
                 'variations' => [
                     Yii::$app->request->get('page'),
                     Yii::$app->request->get('PostSearch'),
@@ -96,6 +96,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        
         //var_dump(Yii::$app->user->isGuest);die;
         $tags = Tag::findTagWeights();
         $recentComments = Comment::findRecentComments();
@@ -193,6 +194,45 @@ class PostController extends Controller
 
     public function actionDetail($id)
     {
+        /**
+        $redis = Yii::$app->redis;
+        //$redis->set('username','weibin');
+        $a = $redis->get('username');
+        var_dump($a);
+        //$redis->hmset('xindi','name','weibin','age','30');
+        $b = $redis->HGETALL('xindi');
+        var_dump($b);
+        //$cc = array('a' => 'aa', 'b' => 'bb');
+        //$redis->LPUSH('guilai','abcd');
+        $c = $redis->LRANGE('guilai',0,10);
+        var_dump($c);
+        $redis->SADD('list_laima','redis');
+        $redis->SADD('list_laima','laile');
+        $redis->SADD('list_laima','redis');
+        $d = $redis->SMEMBERS('list_laima');
+        var_dump($d);
+        $redis->ZADD('sort_set',1,'redis');
+        $redis->ZADD('sort_set',2,'mysql');
+        $redis->ZADD('sort_set',3,'mysql');
+        $redis->ZADD('sort_set',4,'mongodb');
+        $e = $redis->ZRANGE('sort_set',0,1);
+        var_dump($e);
+        $redis->PFADD('heper_log','redis');
+        $redis->PFADD('heper_log','redis');
+        $redis->PFADD('heper_log','redis');
+        $redis->PFADD('heper_log','mysql');
+        $f = $redis->PFCOUNT('heper_log');
+        var_dump($f);
+
+        $redis->MULTI();
+        //$redis->set('book_name','meeting');
+        //$redis->SADD('set_add','bulaile');
+        $redis->EXEC();
+        echo $redis->get('book_name');
+        die;
+        //$result = $redis->executeComman('hmset',['test_collection','key1','val1','key2','val2']);
+        */
+
         //step1.准备数据模型
         $model = $this->findModel($id);
         $tags = Tag::findTagWeights();

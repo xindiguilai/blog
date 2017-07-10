@@ -9,5 +9,12 @@ return [
         'authManager' => [
         	'class' => 'yii\rbac\DbManager',
         ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'password' => 'zwb123258',
+            'port' => 6379,
+            'database' => 0,
+        ],
     ],
 ];
