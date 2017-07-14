@@ -32,6 +32,7 @@ class UserController extends Controller
 
     /**
      * @inheritdoc
+     * 权限设置
      */
     public function behaviors()
     {
